@@ -1,5 +1,5 @@
 #!/bin/python3
-# get url of mp3 file of given word from forvo
+# play pronunciation from forvo.com
 # 2020年07月01日 星期三 16时30分02秒
 
 import sys
