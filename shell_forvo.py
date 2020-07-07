@@ -73,7 +73,7 @@ def play_sound(mp3_path: str):
     elif (mpg123 := find_executable('mpg123')):
         subprocess.run([mpg123, mp3_path])
     elif (ffplay := find_executable('ffplay')):
-        subprocess.run([ffplay, '-autoexit', 'nodisp', mp3_path])
+        subprocess.run([ffplay, '-autoexit', '-nodisp', mp3_path])
     else:
         raise PlayerNotFoundError("Available audio player not found, install any one of the package ['sox (play)', 'mpg123 (mpg123)', 'ffmpeg (ffplay)'] from your package manager")
 
