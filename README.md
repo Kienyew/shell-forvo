@@ -12,9 +12,9 @@ a python3 script to play audio from forvo.com in shell for language learning or 
 
 `python shell_forvo.py "яйцо" --lang be` # Belarusian
 
-`python shell_forvo.py "鬼" --lang zh` # Mandarin Chinese
+`python shell_forvo.py "魑魅魍魉" --lang zh` # Mandarin Chinese
 
-`python shell_forvo.py "鬼" --lang ja` # Japanese
+`python shell_forvo.py "魑魅魍魉" --lang ja` # Japanese
 
 `python shell_forvo.py "pornography" --no-cache` # Do not cache the audio in filesystem
 
