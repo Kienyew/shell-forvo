@@ -87,6 +87,8 @@ if __name__ == '__main__':
     argparser.add_argument('--no-cache', '-c', action='store_true', help=f'disable caching the mp3 file to "{CACHE_HOME}/"', default=False)
     args = argparser.parse_args()
 
+    Path.mkdir(CACHE_HOME, exist_ok=True)
+
     if cache_exists(args.word, args.lang):
         audio_path = get_cache_path(args.word, args.lang)
         print(f'found cached audio `{audio_path}`')
@@ -94,9 +96,8 @@ if __name__ == '__main__':
         sys.exit(0)
 
     mp3_content = fetch_raw_mp3(args.word, args.lang)
-    audio_path = tempfile.mkstemp(prefix='python-shell-forvo-', suffix='.mp3')[1] if args.no_cache else get_cache_path(args.word, args.lang)
+    audio_path = Path(tempfile.mkstemp(prefix='python-shell-forvo-', suffix='.mp3')[1]) if args.no_cache else get_cache_path(args.word, args.lang)
     audio_path.write_bytes(mp3_content)
     play_sound(audio_path)
     if args.no_cache:
         audio_path.unlink()
-
