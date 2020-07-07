@@ -8,7 +8,6 @@ import tempfile
 import argparse
 import subprocess
 from pathlib import Path
-from typing import Union
 from distutils.spawn import find_executable
 
 import fake_useragent
