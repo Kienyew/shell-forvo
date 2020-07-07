@@ -27,6 +27,9 @@ def get_mp3_url(word: str, lang: str = '') -> str:
     search_page_url = f'https://forvo.com/search/{word}/{lang}'
     soup = bs4.BeautifulSoup(requests.get(search_page_url, headers={'User-Agent': firefox}).text, 'lxml')
     target_tag = soup.select_one('span[id^="play_"]')
+    if target_tag is None:
+        raise ValueError(f"url for '{word}' in language '{lang}' found")
+
     onclick_attr = str(target_tag['onclick'])
     _, path_mp3, *_ = onclick_attr.split(';')[0].lstrip('Play(').rstrip(')').split(',')
 
@@ -80,7 +83,7 @@ if __name__ == '__main__':
     argparser = argparse.ArgumentParser(
             prog='shell-forvo',
             description="play word's pronunciation from forvo"
-    )
+            )
 
     argparser.add_argument('word', action='store')
     argparser.add_argument('-l', '--lang', action='store', help='language codes listed in "https://forvo.com/languages-codes/"', default='')
@@ -95,7 +98,12 @@ if __name__ == '__main__':
         play_sound(str(audio_path))
         sys.exit(0)
 
-    mp3_content = fetch_raw_mp3(args.word, args.lang)
+    try:
+        mp3_content = fetch_raw_mp3(args.word, args.lang)
+    except ValueError as e:
+        print(e)
+        sys.exit(1)
+
     audio_path = Path(tempfile.mkstemp(prefix='python-shell-forvo-', suffix='.mp3')[1]) if args.no_cache else get_cache_path(args.word, args.lang)
     audio_path.write_bytes(mp3_content)
     play_sound(audio_path)
