@@ -19,4 +19,4 @@ a python3 script to play audio from forvo.com in shell for language learning or 
 `python shell_forvo.py "pornography" --no-cache` # Do not cache the audio in filesystem
 
 ## Install
-No installation method yet but you can always do something like `mv shell_forvo.py "$HOME/.local/bin/sfv"` for simple run.
+No installation method yet but you can always do something like `chmod +x shell_forvo.py && mv shell_forvo.py "$HOME/.local/bin/sfv"` for simple run.
