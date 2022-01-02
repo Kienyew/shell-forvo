@@ -8,7 +8,7 @@ import tempfile
 import argparse
 import subprocess
 from pathlib import Path
-from distutils.spawn import find_executable
+import shutil
 
 import fake_useragent
 from xdg import XDG_CACHE_HOME
@@ -68,11 +68,11 @@ def cache_exists(word: str, lang: str) -> bool:
 
 def play_sound(mp3_path: str):
     mp3_path = str(mp3_path)
-    if (play := find_executable('play')):
+    if (play := shutil.which('play')):
         subprocess.run([play, '-t', 'mp3', mp3_path])
-    elif (mpg123 := find_executable('mpg123')):
+    elif (mpg123 := shutil.which('mpg123')):
         subprocess.run([mpg123, mp3_path])
-    elif (ffplay := find_executable('ffplay')):
+    elif (ffplay := shutil.which('ffplay')):
         subprocess.run([ffplay, '-autoexit', '-nodisp', mp3_path])
     else:
         raise PlayerNotFoundError("Available audio player not found, install any one of the package ['sox (play)', 'mpg123 (mpg123)', 'ffmpeg (ffplay)'] from your package manager")
