@@ -10,9 +10,9 @@ from pathlib import Path
 import shutil
 
 import fake_useragent
-from xdg import XDG_CACHE_HOME
+from xdg import BaseDirectory
 
-CACHE_HOME = XDG_CACHE_HOME / 'shell-forvo'
+CACHE_HOME = Path(BaseDirectory.xdg_cache_home) / 'shell-forvo'
 
 class PlayerNotFoundError(Exception):
     pass
