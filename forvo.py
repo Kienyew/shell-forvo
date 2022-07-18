@@ -26,7 +26,7 @@ def get_mp3_url(word: str, lang: str = '') -> str:
     search_page_url = f'https://forvo.com/search/{word}/{lang}'
     soup = bs4.BeautifulSoup(requests.get(search_page_url, headers={
                              'User-Agent': firefox}).text, 'lxml')
-    target_tag = soup.select_one('span[id^="play_"]')
+    target_tag = soup.select_one('div[id^="play_"]')
     if target_tag is None:
         raise ValueError(f"url for '{word}' in language '{lang}' found")
 
